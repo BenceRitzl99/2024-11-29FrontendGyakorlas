@@ -35,7 +35,9 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
     AngularFireDatabaseModule
     
   ],
-  providers: [],
+  providers: [
+    provideHttpClient(),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

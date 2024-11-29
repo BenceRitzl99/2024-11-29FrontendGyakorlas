@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BaseFireService } from '../base-fire.service';
 import { map } from 'rxjs';
+import { BaseRestService } from '../base-rest.service';
 
 @Component({
   selector: 'app-record',
@@ -19,17 +20,27 @@ export class RecordComponent {
   ]
 
   newRecord:any={}
-  constructor(private base:BaseFireService){
-    base.getRecord().snapshotChanges().pipe(
-      map(
-        (changes)=>changes.map(
-          (c)=>({key:c.payload.key,...c.payload.val()})
-        )
-      )
-    ).subscribe(
-      (res)=>this.records=res
-    )
+  constructor(private base:BaseRestService){
+  //   base.getRecord().snapshotChanges().pipe(
+  //     map(
+  //       (changes)=>changes.map(
+  //         (c)=>({key:c.payload.key,...c.payload.val()})
+  //       )
+  //     )
+  //   ).subscribe(
+  //     (res)=>this.records=res
+  //   )
   }
+
+  base.getRecord().subscribe(
+    (res:any)=>{
+      this.records=[]
+      for(const key in res){
+        this.records.push({key:key, ...res[key]})
+      }
+    }
+    
+  
 
   addRecord(){
     this.base.addRecord(this.newRecord)
@@ -44,6 +55,8 @@ export class RecordComponent {
   deleteRecord(record:any){
     this.base.deleteRecord(record)
   }
+
+
 }
 
 
