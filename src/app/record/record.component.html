@@ -1,0 +1,30 @@
+<!-- <p>record works!</p>
+{{records|json}} -->
+
+<div class="row my-3 fw-bold">
+    <div *ngFor="let oszlop of oszlopok" class="col">{{oszlop.text}}</div>
+    <div class="col">Actions</div>
+</div>
+
+
+<div class="row mt-3">
+    <div *ngFor="let oszlop of oszlopok" class="col">
+        <input [type]="oszlop.type" [(ngModel)]="newRecord[oszlop.key]" class="form-control">
+    </div>
+
+    <div class="col">
+        <button type="button" (click)="addRecord()" class="btn btn-outline-success btn-ms">Add</button>
+    </div>
+
+
+    <div *ngFor="let record of records" class="row">
+    <div *ngFor="let oszlop of oszlopok" class="col">
+        <input [type]="oszlop.type" [(ngModel)]="record[oszlop.key]" class="form-control">
+    </div>
+    
+    
+    <div class="col">
+        <button type="button" (click)="updateRecord(record)" class="btn btn-outline-success btn-ms">Update</button>
+        <button type="button" (click)="deleteRecord(record)" class="btn btn-outline-danger ">Delete</button>
+    </div>
+</div>
